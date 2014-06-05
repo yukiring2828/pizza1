@@ -1,0 +1,97 @@
+<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
+<!-- above set at the top of the file will set     -->
+<!-- the browser's rendering engine into           -->
+<!-- "Quirks Mode". Replacing this declaration     -->
+<!-- with a "Standards Mode" doctype is supported, -->
+<!-- but may lead to some differences in layout.   -->
+
+
+	
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>データの表示</title>
+    <script type="text/javascript" src="lib.js"></script>
+        <script type="text/javascript">
+        <!--
+        function callback(request){
+            var json = eval(request.responseText);
+            var res = '';
+            if (json.length == 1){
+                res += '<tr><td>' + json[0].id +'</td></tr>';
+                res += '<tr><td>' + json[0].title +'</td></tr>';
+                res += '<tr><td>' + json[0].url +'</td></tr>';
+                res += '<tr><td>' + json[0].comment +'</td></tr>';
+            } else {
+                for (var i = 0;i < json.length;i++){
+                    res += '<tr><td><a href="javascript:return false;" onclick="getData(' + json[i].id +');">' + json[i].id + '</a></td>';
+                    res += '<td><a href="' + json[i].url + '">' + json[i].title + '</a></td>' +
+                    '<td><a href="edit.html?id=' + json[i].id + '">Edit</td>' +
+                    '<td><a href="del.html?id=' + json[i].id + '">Delete</td></tr>';
+                }
+            }
+            var obj = document.getElementById("datatable");
+            obj.innerHTML = res;
+        }
+        //-->
+        </script>
+        
+<script>
+
+//セ・リーグのチームの配列
+var s_league=new Array(
+"","中日","ヤクルト","巨人","阪神","横浜","広島"
+);
+
+//パ・リーグのチームの配列
+var p_league=new Array(
+"","ロッテ","西武","オリックス","ソフトバンク","楽天","日本ハム"
+);
+
+
+function teamSet(){
+
+  //オプションタグを連続して書き換える
+  for ( i=1; i<7; i++ ){
+
+    //選択したリーグによって分岐
+    switch (document.selbox.league.selectedIndex){
+      case 0: document.selbox.team.options[i].text="";break;
+      case 1: document.selbox.team.options[i].text=s_league[i];break;
+      case 2: document.selbox.team.options[i].text=p_league[i];break;
+    }
+  }
+
+  //チーム名のセレクトボックスの選択番号を０にする
+  document.selbox.team.selectedIndex=0;
+}
+
+</script>
+
+  </head>
+  <body onload="getData(null);">
+    <h1>データの表示</h1>
+     
+    <table id="datatable" border="1">
+      <tr>
+        <td>wait...</td>
+      </tr>
+    </table>
+    <br>
+    <div><a href="add.html">データの新規追加</a></div>
+
+<body onload="getData(563447256949470976);">
+    <h1>データの表示</h1>
+     
+    <table id="datatable" border="1">
+      <tr>
+        <td>wait...</td>
+      </tr>
+    </table>
+    <br>
+    <div><a href="add.html">データの新規追加</a></div>
+
+  </body>
+  
+</html>
